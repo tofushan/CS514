@@ -1,0 +1,13 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    {%  for order in orders %}
+       <div class="list-group">
+           <a href="{% url 'RideApp:driver-order-detail' order.pk %}" class="list-group-item">
+               <li class="article-content">Order : {{order.dst}} supposed to be arrived at {{ order.arrivial_time|date:"F d, Y H:i:s"}} </li>
+           <li class="article-content">Order's passenger number: {{ order.order_pass_num }}</li>
+           <li class="article-content">Order status: {{ order.status }}</li>
+           </a>
+        </div>
+    {% endfor %}
+    <br>
+{% endblock content %}

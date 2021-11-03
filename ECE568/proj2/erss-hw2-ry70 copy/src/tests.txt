@@ -1,0 +1,52 @@
+test 1: 568 class.html
+
+Request:
+
+GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1
+Host: people.duke.edu
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+If-Modified-Since: Fri, 21 Feb 2020 03:11:29 GMT
+If-None-Match: "2ad72e5cf-1b16-59f0d60bcedbc"
+Cache-Control: max-age=0
+
+Response:
+HTTP/1.1 200 OK
+
+
+
+test 2: no new line at the end
+
+Response:
+HTTP/1.1 400 Bad Request
+
+
+
+test 3: wrong hostname
+
+Request:
+GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1
+Host: people.duke
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+If-Modified-Since: Fri, 21 Feb 2020 03:11:29 GMT
+If-None-Match: "2ad72e5cf-1b16-59f0d60bcedbc"
+Cache-Control: max-age=0
+
+Response:
+HTTP/1.1 400 Bad Request
+And will write "detect max-age=0" to log file.
+
+
+
+test 4: normal https CONNECT Request
+
+Outcome: all functionalities work fine, pdfs, youtube videos, mp3 streams...

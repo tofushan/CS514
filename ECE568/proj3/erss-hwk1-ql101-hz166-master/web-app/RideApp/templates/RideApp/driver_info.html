@@ -1,0 +1,11 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+   <div class="list-group">
+       <p class="article-title">Driver Info</p>
+       <p class="article-content">Vehicle Type: {{ vehicle_type }}</p>
+       <p class="article-content">Max Car Passenger Number: {{ max_car_pass }}</p>
+       <p class="article-content">License Plate Number: {{ license_plate_number }}</p>
+       <p class="article-content">Special Request: {{ special_request }}</p>
+    </div>
+    <br>
+{% endblock content %}

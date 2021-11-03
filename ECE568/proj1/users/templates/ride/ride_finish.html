@@ -1,0 +1,10 @@
+{% extends "homepage/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+                <button class="btn btn-outline-info" type="submit", name = "ride_finish">Finish!</button>
+        </form>
+    </div>
+{% endblock content %}

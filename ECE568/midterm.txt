@@ -1,0 +1,132 @@
+568 midterm
+
+API for authentication sever:
+
+Request:
+POST authentication_server_url HTTP/1.1
+HOST: xxxx
+Content-Length: 25
+Authorization: Basic abcdefg
+Cache-Control: no-cache
+Accept-Encoding: gzip
+
+
+Data:
+user=Drew,
+
+
+Response:
+HTTP 401 Un-authorized
+Data: 2020-04-27 16:00GMT
+
+
+Why exactly once difficult to deal with?
+
+
+
+How (1-3 sentences) do you design your server to handle the complexities of everything that could go wrong?
+I need to deal with bad internet connection:send ack when receive, add sequence number, resend when time out, receive data multiple times but only act once
+
+I need to deal with exception:use try catch block, use unique_lock to make sure even exception happens, locks are unlock when leave the scope, use smart ptr , use tmp and swap: to give strong guarantee
+
+
+
+
+4
+1.Recall the 6 REST principles we studied. List the 2 REST principles that best enable your browser to retrieve a JavaScript library one time and use it to execute client-side code on multiple web pages.
+1. Cacheability
+2. Code on demand
+
+
+2.Recall the 6 REST principles we studied. List the 2 REST principles that best enable your browser to receive JSON describing available flights, select a flight to book, and pop up other browser windows that show which seats are open on each flight.
+
+manipulate representations + uniform interface
+
+
+
+3.As we learned in assignment #2, Hypertext Transfer Protocol (HTTP) includes many different types of header fields in request and responses. Describe the motivation for having Cache-Control header fields in the protocol. You may also relate this back to REST principle(s).
+
+Cacheability: response should be cacheable
+Stateless:: server does not remember anything before
+
+
+
+4.In an HTTP response, there may be a Cache-Control header called must-validate which indicates that once a resource becomes stale, caches must not use their stale copy without successful validation on the origin server.
+Assume a resource has this Cache-Control attribute.  What is the potential benefit of continuing to hold the resource in the cache after it becomes stale, rather than just deleting it from the cache?
+
+304 unmodified, valid to use after re-validation.
+
+
+
+Suppose you were designing a server software system for a ride-sharing service, such as Lyft or Uber (or our assignment #1!).
+In such a design there will be many interactions between different components during the steps to process requests from users of the service. Identify 2 components of your choice that would interact. Describe how you would design the interactions between these two components. Don't forget to discuss how to handle when things go wrong in these interactions.
+
+
+a.send request to reserve drive
+if i successfully receive request, then i will proceed to charge.
+if i wait for a long time and still not receive, i will require to resend
+if i require for multiple time, still no request, then i will think it invalid then abort it
+
+b.charge user 
+if i receive ack from client, then i will charge then proceed to next stage
+if i wait for a long time and still not receive, i will require to resend
+if i require for multiple time, still no request, then i will think it invalid then abort it
+
+
+
+
+5
+1.Related to storage, we learned about both RAID (Redundant Array of Inexpensive Disks) and backup strategies. Is there ever a need to use both RAID and backup at the same time? Describe why or why not.
+
+RAID is for High Availability, back up is for Disaster Recovery
+
+
+2.A HA compute cluster with 2 nodes is constructed in an active/active config. When it is first brought online, each node saw an average of 20% cpu util. After several years of operation without a failure, each node now sees an average 70% cpu util. Is the cluster still capable of sustaining a failure, without impacting the workload? Why or why not?
+
+No, active/active config needs two copies, i.e. 140% CPU utility.
+
+
+
+3.For High Availability, what is the one primary thing we want to avoid in our system design? Also, describe how the "Universal HA topology" as we covered in class enables a system to avoid this.
+
+single point of failure;
+Universal HA topology has at least two copies and inter-server links among them.
+
+
+
+
+6.
+1.Recall that we discussed four dimensions of security: (a) Confidentiality, (b) Integrity, (c) Authentication, (d) Availability. For each of the following three scenarios, list the security dimension(s) that are compromised.
+An attacker changes the bank account number contained within an HTTP request traveling across Wifi from a client to a bank server.
+Integrity
+
+An attacker performs a man-in-the-middle attack against a Diffie-Hellman exchange between two parties and then spies on their subsequent communication.
+Authentication， Confidentiality
+
+An attacker conducts a side-channel attack against a computer while it is computing AES operations, and the attacker discovers the value of the secret key.
+Confidentiality 
+
+
+
+
+2.This question is related to buffer overflow attacks. What if a system wanted to prevent such attacks, and implemented the following mechanism.
+Each time a new stack frame is created, a constant value is added to the stack frame between the saved return address and any local variables.  On returning from a function, the memory location containing the constant value is checked by the CPU.  If it still contains the constant value, the function return proceeds as normal.  But if the value at that location does not match the constant, then a security exception is raised for corrective action.
+Is this a perfect scheme (i.e. would it completely solve the problem of buffer overflow attacks)?  Describe why or why not.
+
+Canaries could be bypassed and attackers can corrupt other important stack variable and even overwrite the return address.
+
+
+7
+1.We discussed two reasons for desiring asynchronous interfaces between components of our server software system. One reason is performance-related (to avoid blocking). Describe the other reason.
+
+
+
+
+2.In server software, an important aspect of handling errors / exceptions is making sure that we release resources (e.g. memory, files, etc.) properly even if an error / exception does happen. Describe why this proper resource management is so critical for server software (compared to many user-level programs).
+
+The server should be run forever
+
+
+
+3.When a daemon process is launched, a number of steps go into making sure that the daemon process eventually runs with no controlling tty.  Briefly describe why such care is taken to avoid a controlling tty for a daemon.
+

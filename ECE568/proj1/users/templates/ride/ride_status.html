@@ -1,0 +1,24 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+    <div class="content-section">
+      <!-- FORM HERE -->
+      {% if ride %}
+        <div>Ride owner: {{ride.owner}}</div>
+        <div>Ride driver: {{ride.driver}}</div>
+        <div>People sharing: {{ride.sharer}}</div>
+        <div>Ride destination: {{ride.destination}}</div>
+        <div>Time of arrival: {{ride.arrival_time}}</div>
+        <div>Total passengers: {{ride.total_pass}}</div>
+        <div>Sharing: {{ride.sharing}}</div>
+        <div>Status: {{ride.status}}</div>
+        <div>Special request: {{ride.other_request}}</div>
+        <div>Vehicle type: {{ride.vehicle_type}}</div>
+        
+      {%else%}
+        <h5>You do not have any requested ride</h5>
+        <div>
+            <a class="ride_request" href="{% url 'ride-request' %}">Book your first ride now!</a>
+        </div>
+      {%endif%}
+    </div>
+{% endblock content %}

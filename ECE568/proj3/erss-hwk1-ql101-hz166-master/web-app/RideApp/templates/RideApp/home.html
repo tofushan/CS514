@@ -1,0 +1,24 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    <h1>Home Page</h1>
+
+    <div class="media-body">
+      <div class="article-metadata">
+           {% if user.is_authenticated %}
+                 <br>
+                     Select your role
+               <br><a class="mr-2" href="{% url 'RideApp:userAllRequest' %}">As a user</a>
+               <br><a class="mr-2" href="{% url 'RideApp:driver-home' %}">As a driver</a>
+               <br><a class="mr-2" href="{% url 'RideApp:sharer-home' %}">As a sharer</a>
+           {% else %}
+               <br>
+                     Welcome! Have no account?
+               <a class="nav-item nav-link" href="{% url 'register' %}">Please register!</a>
+               <br>
+                     Already have an account?
+               <a class="nav-item nav-link" href="{% url 'login' %}">Please login!</a>
+           {% endif %}
+      </div>
+    </div>
+
+{% endblock content %}

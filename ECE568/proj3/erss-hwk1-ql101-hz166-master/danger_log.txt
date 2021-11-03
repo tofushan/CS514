@@ -1,0 +1,38 @@
+# erss-hwk1-ql101-hz166
+Ride sharing web application
+
+Qing Lu     NetID:ql101
+Huixin Zhang  NetID: hz166
+
+
+
+1.Overview
+Our web application helps user to find an available car as an owner, join an open order as a sharer and confirm an order as a driver.
+
+2.The open order may cannot update/modify when the sharer update their passenger number	   2020/01/25
+
+3.one person cannot be sharer, driver and owner at the same time       2020/01/25
+
+4.Do we need to list driver’s license number because User objects don’t have license number			2020/01/27
+
+5.The driver cannot confirm the order created by himself  	  	2020/01/27
+
+6.If user wants to confirm the order, he should first create driver profile, like wants to be a driver. Otherwise, he cannot confirm the order   2020/01/28
+
+7.We need to update the order passenger number when sharer joins the order   	  2020/01/28
+
+8.We need to update the car’s capacity and driver’s license number to user all request when driver confirm the order.	  2020/01/28
+
+9.User login/register/create a request pages require special format, such as creating password, date and email address. system will check the username and if this username has already been registered, it will return a error message to let the user know her input username has already existed.    2020/01/29
+
+10.After clicking the “as a driver”, user could search for the open request based on his choose (special request, car type, car capacity). However, if driver wants to change the choose, he should change the profile and save the choose.    	   2020/02/02
+
+11.As a sharer, he could only view the sharer request. If he wants to view the owner request, he needs to go back to home page and clicked the “as a owner” and view all history  	  2020/02/03
+
+12. if different drivers try to confirm the same open ride at the same time point, it will result in data race.      2020/02/03
+
+13. Sharer cannot cancel the order they join if they don't want to create the request.      2020/02/04
+
+14. If driver confirms the order, order cannot be modified, such as sharer cannot quit the order, owner cannot cancel the order and driver cannot cancel the order.     2020/02/04
+
+15. If the order is open and owner cancels the order, the sharer in this order cannot view the order.   2020/02/05

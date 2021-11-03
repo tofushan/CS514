@@ -1,0 +1,19 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    {%  for order in orders %}
+       <div class="list-group">
+            <a href="{% url 'RideApp:driver-order-detail' order.pk %}" class="list-group-item">
+                Order : {{order.dst}} supposed to be arrived at {{ order.arrival_time }}
+             </a>
+        </div>
+        <a href="{% url 'RideApp:driver-order-complete' order.pk %}">
+            <button>Complete</button>
+        </a>
+    {% endfor %}
+    <br>
+    <div>
+        <a href="{% url 'RideApp:driver-home' %}">
+            <button>Back to home</button>
+        </a>
+    </div>
+{% endblock content %}

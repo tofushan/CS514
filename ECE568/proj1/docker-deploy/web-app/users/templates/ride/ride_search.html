@@ -1,0 +1,38 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+    {%if form%}
+        <div class="content-section">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend>Please enter ride info you wanna search for:</legend>
+                    {{form.as_p}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+                </div>
+            </form>
+        </div>    
+    {%else%}
+        {% for ride in rides %}
+            <article class="media content-section">
+            <div class="media-body">
+                <div>Ride owner: {{ride.owner}}</div>
+                <div>Ride driver: {{ride.driver}}</div>
+                <div>People sharing: {{ride.sharer}}</div>
+                <div>Ride destination: {{ride.destination}}</div>
+                <div>Time of arrival: {{ride.arrival_time}}</div>
+                <div>Total passengers: {{ride.total_pass}}</div>
+                <div>Sharing: {{ride.sharing}}</div>
+                <div>Status: {{ride.status}}</div>
+                <div>Special request: {{ride.other_request}}</div>
+                <div>Vehicle type: {{ride.vehicle_type}}</div>
+                <form method="POST", action = "">
+                        {% csrf_token %}
+                        <button class="btn ride-claim" type="submit", name="claim_the_ride">Take this ride!</button>
+                    </form>
+            </div>
+            </article>
+        {% endfor %}
+    {%endif%}
+{% endblock content %}

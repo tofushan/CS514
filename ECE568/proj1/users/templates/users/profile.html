@@ -1,0 +1,24 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+          {% if driver %}
+            <p>Your plate number is: </p>
+            <p class="text-secondary">{{ driver.plate_number }}</p>
+            <p>Your vehicle's maximum capacity is:: </p>
+            <p class="text-secondary">{{ driver.max_pass }}</p>
+            <p>Your vehicle type is: </p>
+            <p class="text-secondary">{{ driver.vehicle_type }}</p>
+          {%endif%}
+      <div>
+        <a class="dirver_update" href="{% url 'driver-update' %}">Change your info</a> 
+      </div>
+        </div>
+      </div>
+      <!-- FORM HERE -->
+     
+    </div>
+{% endblock content %}

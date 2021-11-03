@@ -1,0 +1,24 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    {%  for order in selected_orders %}
+        <div>
+            <article class="content-section">
+                <h2 class="article-title">Destination: {{ order.dst }}</h2>
+                <p class="article-content">Arrival Time: {{ order.arrivial_time|date:"F d, Y H:i:s" }}</p>
+                <p class="article-content">Passenger Number: {{ order.order_pass_num }}</p>
+                <p class="article-content">Special Request: {{ order.special_request }}</p>
+                <p class="article-content">Vehicle Type: {{ order.special_vehicle_type }}</p>
+            </article>
+        </div>
+        <a href="{% url 'RideApp:driver-order-confirm' order.pk %}">
+            <button>Confirm</button>
+        </a>
+    {% endfor %}
+    <br>
+    <div>
+        <a href="{% url 'RideApp:driver-home' %}">
+            <button>Back</button>
+        </a>
+    </div>
+{% endblock content %}
+

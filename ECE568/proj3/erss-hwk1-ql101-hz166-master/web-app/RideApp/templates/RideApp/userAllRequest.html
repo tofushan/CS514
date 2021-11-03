@@ -1,0 +1,27 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    {% for order in orders %}
+        {% if order.owner == user %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href=" ">Owner: {{ order.owner.username}}</a >
+              <small class="text-muted">Time: {{ order.arrivial_time|date:"F d, Y H:i:s" }}</small>
+            </div>
+
+            <h2><a class="article-title" href="{% url 'RideApp:order-detail' order.id %}">Destination: {{ order.dst }}</a ></h2>
+
+              <p class="article-content">Order's number: {{ order.order_pass_num }}</p >
+              <p class="article-content">Are you willing to share with others? {{ order.is_share }}</p >
+              <p class="article-content">Special request: {{ order.special_request }}</p >
+              <p class="article-content">Vehicle type info: {{ order.special_vehicle_type }}</p >
+              <p class="article-content">Order status: {{ order.status }}</p >
+               {% if order.status == 'confirm' %}
+                    <p class="article-content">Driver's name: {{ order.driver.username }}</p >
+                   <a class="article-content" href="{% url 'RideApp:driver-info' order.pk %}">Driver and car's detail</a >
+                {% endif %}
+          </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

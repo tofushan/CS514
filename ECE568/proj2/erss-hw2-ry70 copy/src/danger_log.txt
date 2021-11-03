@@ -1,0 +1,37 @@
+02/11 Opened the project and read through the document
+
+02/12 Discussed and divided the work by cache itself and everything else.
+
+02/13-02/15 Researched relative fileds and coding. Socket setup was done by this point.
+
+02/17 Refined data structure: making a base class called http and two inherited classes called reponse and request.
+      The idea behind is mainly based on realization of many things in common, such as same structure: first status
+      line, headers and values, then the body. Also, they share many construction functions, e.g. parse_line()...
+
+02/18 Tested CONNECT on remote VM and encountered the first problem: recv() always returns 0.
+      The issue is solved by not using strings. Yes just realized the data is not consercutive. Char array was then
+      used. Also forgot to send "http/1.1 200 ok" back to clients.
+
+02/20 The second issue met: connections to servers are ok but the client browser cannot display what was expected.
+      Solution: by marking down number of bytes received from recv() and send the same data size. Also, multi-thread
+      functionality was implemented and sites redirections work.
+
+02/23 Finished GET request handlers. Tested on VM but did not work: nothing displayed.
+      Solution: using vector<char> instead of string. Yes, string again, we should learn. 
+
+02/24 Should be a time for merging but my teammate told me he withdrew from the course and did not write anything. Sad.
+      Made a private piazza post about this issue and Brain promised to grade me based a reduced requirement.
+      But continuing for the rest.
+      Finished coding about how to determine if a cached response is valid.
+
+02/25 Issue: for pages with large size, such as pdfs, the GET request times out.
+      Solution: check the returned size of recv() and constantly sending data to client if there is anything left.
+
+02/26 Finished code for cache revalidation.
+      Note: modified to check requests' cache control first then responses'.
+      Changed all cout prints to log file writtings. 
+
+02/28 Set the docker up and tested.
+      Some testcases for demonstrations are written.
+      Really got no time for perfections.
+      Enjoyed this project.

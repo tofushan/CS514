@@ -1,0 +1,13 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    <h1>Driver Page</h1>
+  <br>
+        What you want to do?
+    <div class="media-body">
+      <div class="article-metadata">
+        <br><a class="mr-2" href="{% url 'RideApp:driver-orders' user.pk%}">View the confirmed order</a>
+          <br><a class="mr-2" href="{% url 'RideApp:driver-search' %}">Start a new order</a>
+      </div>
+    </div>
+
+{% endblock content %}

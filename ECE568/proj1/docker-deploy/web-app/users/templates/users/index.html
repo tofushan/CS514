@@ -1,0 +1,32 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Welcome to ride sharing system</h1>
+    {% if is_driver == True%}
+    <div>
+      <a class="nav-item nav-link" href="{% url 'profile' %}">Check driver's profile here</a>
+      <a class="nav-item nav-link" href="{% url 'ride-finish' %}">Finish ride</a>
+      <a class="nav-item nav-link" href = "{% url 'ride-status' %}">Check ongoing rides here</a>
+    </div>
+    {%else%}
+    <div>
+      <a class="dirver_register" href="{% url 'driver-register' %}">Become a driver</a>
+    </div>
+    {%endif%}
+     <div>
+        <a class="ride_request" href="{% url 'ride-request' %}">Request a new ride</a>
+     </div>
+     <div>
+      <a class="ride_status" href="{% url 'ride-status' %}">Check booked ride</a>
+     </div>
+     <div>
+      <a class = "ride_update" href = "ride_update/">Update the ride</a>
+     </div>
+     <div>
+      <a class="ride_search" href="{% url 'ride-search' %}">Search open rides</a>
+     </div>
+  {%else%}
+    <h1>Please login or register first</h1>
+  {%endif%}    
+
+{% endblock content %}

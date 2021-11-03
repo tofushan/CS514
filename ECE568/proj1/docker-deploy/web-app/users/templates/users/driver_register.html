@@ -1,0 +1,16 @@
+{% extends "homepage/base.html" %}
+
+{% block content %}
+    <h4>Please enter plate number below</h4>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{form.as_p}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Add my info!</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

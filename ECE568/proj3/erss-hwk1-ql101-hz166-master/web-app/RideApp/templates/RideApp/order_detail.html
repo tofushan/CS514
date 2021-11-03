@@ -1,0 +1,28 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <p class="mr-2">Owner: {{ object.owner.username}}</p>
+              <small class="text-muted">Time: {{ object.arrivial_time|date:"F d, Y H:i:s" }}</small><!--detailview expects object called objects-->
+                {% if object.owner == user %}
+                {% if object.status == 'open' %}
+          <div>
+
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'RideApp:order-update' object.id%}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'RideApp:order-delete' object.id%}">Delete</a>
+          </div>
+                    {% endif %}
+        {% endif %}
+            </div>
+            <h2><p class="article-title" >Destination: {{ object.dst }}</p></h2>
+            <p class="article-content">Order passenger number: {{ object.order_pass_num }}</p>
+              <p class="article-content">Owner passenger number: {{ object.owner_pass_num }}</p>
+              <p class="article-content">Are you willing to share with others? {{ object.is_share }}</p>
+              <p class="article-content">Driver's name: {{ object.driver.username }}</p><!--好像不可以 这样-->
+              <p class="article-content">Special request: {{ object.special_request }}</p>
+              <p class="article-content">Vehicle type info: {{ object.special_vehicle_type }}</p>
+              <p class="article-content">Order status: {{ object.status }}</p>
+          </div>
+        </article>
+{% endblock content %}

@@ -1,0 +1,31 @@
+Iusse met: Thread creations errors.
+Solution : When using normal thread t = thread() expression we've got errors from compiler. 
+           And then we changed to a lambda function by using [&] reference capture list.
+
+Issue met: parameters are not passed correctly during thread creation.
+Solution : Initially we are passing parameters of thread function inside a for loop.
+           But, parameters are not copied correctly using copy-by-value. Then we 
+           changed thread function parameters by passing a reference to a queue which 
+           is filled with accepted fd's by master process. And each thread will only 
+           process the first request in the queue and pop it out. A mutex lock and a 
+           double-check are used to ensure correct outcome when multi-threaded.
+
+Issue met: Client multi-threaded program exits without waiting for all threads to finish execution. 
+Solution : After the parent process finished creating all therads, it will wait for all threads 
+           to join before exiting. Perhaps a barrier is a better choice here.
+
+Issue met: Some threads cannot create a socket when number of threads in client side exceeds 
+           a certain number.
+Solution : We imposed a limit of maximum threads that client side can create. If user inputs 
+           more requests than the thread number we imposed, those threads which finished their 
+           first job will continue to process requests instead of exiting. 
+
+
+Other notes:
+1. Our server is not absolutely stable. If number of requests overwhelms, it crashes sometimes. A reasonable
+   explanation to this might be resource allocations and deallocations: we did not manage all resources 
+   being used are freed so that the server will run out of resource eventually.
+
+2. Multi-core performance is not good as expected. We think this might be due to overheads and synchronization
+   cost during parallel programming. And the locks we used are simple that some proecsses are executed in 
+   series rather than parallel as they should be.

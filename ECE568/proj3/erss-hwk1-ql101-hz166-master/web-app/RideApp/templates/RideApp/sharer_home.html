@@ -1,0 +1,13 @@
+{% extends "RideApp/base.html" %}
+{% block content %}
+    <h1>Share Page</h1>
+  <br>
+        What you want to do?
+    <div class="media-body">
+      <div class="article-metadata">
+        <br><a class="mr-2" href="{% url 'RideApp:sharer-list' user.pk %}">View the joined order</a>
+          <br><a class="mr-2" href="{% url 'RideApp:sharer-search' %}">Join an order</a>
+      </div>
+    </div>
+
+{% endblock content %}
