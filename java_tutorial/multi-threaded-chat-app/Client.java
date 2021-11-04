@@ -33,6 +33,9 @@ public class Client {
                         msg_to_send = scn.nextLine();
                         try {
                             dataout.writeUTF(msg_to_send);
+                            if ( msg_to_send.equals("logout") ) {
+                                Thread.currentThread().interrupt();
+                            }
                         }
                         catch ( IOException e ) {
                             e.printStackTrace();
@@ -50,6 +53,20 @@ public class Client {
                         try {
                             received = datain.readUTF();
                             System.out.println(received);
+                            
+                            if ( received.equals("Bye") ) {
+                                System.out.println("Disconnected from the server...");
+                                try { 
+                                    datain.close();
+                                    dataout.close();
+                                    System.exit(0);
+                                }
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                    //System.exit(1);
+                                }
+                                Thread.currentThread().interrupt();
+                            }
                         }
                         catch (IOException e) {
                             e.printStackTrace();
@@ -61,7 +78,7 @@ public class Client {
 
             send.start();
             receive.start();
-
+            
         }
         catch (IOException e) {
             e.printStackTrace();

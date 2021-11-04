@@ -24,18 +24,19 @@ public class Server {
                 
                 // accepting state : socket object receive incoming client request
                 s = ss.accept();
-
-                System.out.println("A new client is connected : " + s);
+                System.out.println("----------------------------------------");
+                System.out.println("A new client is connected:" + s);
+                System.out.println("----------------------------------------");
 
                 DataInputStream datain = new DataInputStream(s.getInputStream());
                 DataOutputStream dataout = new DataOutputStream(s.getOutputStream());
-
-                System.out.println("Assigning new thread for this client");
                 
                 // create a new thread object 
-                String c_name = "Client "+ count;
+                String c_name = "c_"+ count;
                 ClientHandler c = new ClientHandler(c_name, s, datain, dataout);
                 
+                System.out.format("Assigning new thread for this client (name: %s)\n", c_name);
+
                 // create new thread for this object
                 Thread t = new Thread(c);
                 
@@ -82,21 +83,24 @@ class ClientHandler implements Runnable {
             try {
                 
                 received = datain.readUTF();
-                System.out.println(received);
+                //System.out.println(received);
+
 
                 if (received.equals("logout")) {
                     this.isLogin = false;
+                    dataout.writeUTF("Bye");
                     s.close();
-                    System.out.format("Closing %s connection.", this.name);
+                    System.out.format("Closing %s connection.\n", this.name);
                     break;
                 }
                 
                 StringTokenizer entire_msg = new StringTokenizer(received, "#");
-                String message = entire_msg.nextToken();
                 String recipient = entire_msg.nextToken();
+                String message = entire_msg.nextToken();
             
                 for ( ClientHandler c: Server.clientList ) {
                     if ( c.name.equals(recipient) && c.isLogin == true ) {
+                        System.out.println(received);
                         c.dataout.writeUTF(this.name + ": " + message);
                         break;
                     }
